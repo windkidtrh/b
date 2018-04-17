@@ -1,6 +1,21 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string
+#  remember_digest :string
+#  admin           :boolean          default(FALSE)
+#
+
 class User < ApplicationRecord
+    has_many      :devices, dependent: :destroy
     attr_accessor :remember_token
-    validates :name, presence: true, length: { maximum: 50 }
+    validates     :name, presence: true, length: { maximum: 50 }
 
     before_save { self.email = email.downcase }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -38,4 +53,9 @@ class User < ApplicationRecord
     def forget
         update_attribute(:remember_digest, nil)
     end
+
+    def feed
+        Device.where("user_id = ?", id)
+    end
+        
 end

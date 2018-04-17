@@ -1,0 +1,12 @@
+<li id="device-<%= device.id %>">
+    <span class="user"><%= link_to device.user.name, device.user %></span>
+    <span class="name"><%= link_to device.name,      device_path(device.id) %></span>
+    <span class="introduction"><%= device.introduction %></span>
+    <span class="timestamp">
+        Posted <%= time_ago_in_words(device.created_at) %> ago.
+        <% if current_user?(device.user) %>
+        <%= link_to "delete", device, method: :delete,
+                                      data: { confirm: "You sure?" } %>
+        <% end %>
+    </span>
+</li>

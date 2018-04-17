@@ -58,6 +58,8 @@ module SessionsHelper
         user == current_user
     end
 
+    
+
     # 重定向到存储的地址或者默认地址
     def redirect_back_or(default)
         redirect_to(session[:forwarding_url] || default)

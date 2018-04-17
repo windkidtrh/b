@@ -1,0 +1,22 @@
+<% provide(:title, @device.name) %>
+<% if current_user?(@device.user) %>
+    <div class="row">
+        <aside class="col-md-4">
+            <section class="user_info">
+                <ul>
+                    <li><h1>当前设备为</h1></li>
+                    <li><p><%= @device.name %></p></li>
+                    <br>
+                    <li><h1>设备的简介为</h1></li>
+                    <li><p><%= @device.introduction %></p></li>
+                    <li>
+                        <%= link_to "update",  edit_device_path(@device)  %>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
+<% end %>
