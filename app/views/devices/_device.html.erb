@@ -1,7 +1,9 @@
 <li id="device-<%= device.id %>">
-    <span class="user"><%= link_to device.user.name, device.user %></span>
-    <span class="name"><%= link_to device.name,      device_path(device.id) %></span>
-    <span class="introduction"><%= device.introduction %></span>
+    <span class="user"><li><p><strong>当前用户</p><%= link_to device.user.name, device.user %></li></span>
+    <span class="name"><li><p><strong>装置名</p><%= link_to device.name,      device_path(device.id)%></li></span>
+    <span class="name"><li><p><strong>装置编号</p><%= device.num %></li></span>
+    <span class="introduction"><li><p><strong>简介</p><%= device.introduction %></span>
+
     <span class="timestamp">
         Posted <%= time_ago_in_words(device.created_at) %> ago.
         <% if current_user?(device.user) %>
@@ -10,3 +12,5 @@
         <% end %>
     </span>
 </li>
+<br>
+<br>

@@ -1,13 +1,15 @@
 class DevicesController < ApplicationController
-    before_action :logged_in_user, only: [:edit, :update, :index, :show, :create, :destroy]
-    before_action :correct_user,   only: [:destroy, :edit, :update]
+    before_action :logged_in_user,   only: [:edit, :update, :index, :show, :create, :destroy]
+    before_action :correct_device,   only: [:destroy, :edit, :update]
 
     def create
-        @device = current_user.devices.build(device_params)
-        if @device.save
+        begin
+            @device = current_user.devices.build(device_params)
+            @device.save
             flash[:success] = "Device created!"
             redirect_to root_url
-        else
+        rescue ActiveRecord::RecordNotUnique 
+            flash.now[:danger] = "Device has been exist!"
             @feed_items = []
             render 'static_pages/home'
         end
@@ -29,6 +31,11 @@ class DevicesController < ApplicationController
 
     def show 
         @device = Device.find(params[:id])
+        @equips = @device.equips.paginate(page: params[:page])
+        if logged_in?
+            @equip =  @device.equips.build
+            @feed_equip_items = @device.feed_equip.paginate(page: params[:page])
+        end
     end
     
     def destroy
@@ -43,10 +50,10 @@ class DevicesController < ApplicationController
 
     private
         def device_params
-            params.require(:device).permit(:name,:introduction)
+            params.require(:device).permit(:name,:introduction, :num)
         end
 
-        def correct_user
+        def correct_device
             @device = current_user.devices.find_by(id: params[:id])
             redirect_to root_url if @device.nil?
         end

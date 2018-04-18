@@ -1,10 +1,11 @@
 <%= form_for(@device) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-        <h1>新建一个装置</h1>
+        <p>新建一个装置</p>
         <%# <%= f.text_field :name, class: 'form-control' %>
-        <%= f.text_field :name,         placeholder: "Compose new device..." %>
-        <%= f.text_area  :introduction, placeholder: "enter introduction..." %>
+        <%= f.text_field :name,         placeholder: "请输入装置名..." %>
+        <%= f.text_field :num,          placeholder: "请输入装置编号..." %>
+        <%= f.text_area  :introduction, placeholder: "请输入装置简介..." %>
     </div>
-    <%= f.submit "Post", class: "btn btn-primary" %>
+    <%= f.submit "确定", class: "btn btn-primary" %>
 <% end %>

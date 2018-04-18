@@ -4,8 +4,11 @@
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
 
+    <%= f.label :num %>
+    <%= f.text_field :num, class: 'form-control' %>
+
     <%= f.label :introduction %>
-    <%= f.text_field :introduction, class: 'form-control' %>
+    <%= f.text_area :introduction, class: 'form-control' %>
 
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

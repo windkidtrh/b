@@ -32,6 +32,24 @@ module SessionsHelper
             
     end
 
+    # def current_device
+    #     # @current_user ||= User.find_by(id: session[:user_id])
+    #     if (device_id = session[:device_id])
+    #         @current_device ||= Device.find_by(id: device_id)
+    #     elsif (device_id = cookies.signed[:device_id])
+    #         device = Device.find_by(id: device_id)
+    #         if device && device.authenticated?(cookies[:remember_token])
+    #             log_in_device device
+    #             @current_device = device
+    #         end
+    #     end
+            
+    # end
+
+    # def log_in_device(device)
+    #     session[:device_id] = device.id
+    # end
+
     # 如果用户已登录，返回 true，否则返回 false
     def logged_in?
         !current_user.nil?

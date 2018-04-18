@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417053734) do
+ActiveRecord::Schema.define(version: 20180418014958) do
 
   create_table "devices", force: :cascade do |t|
     t.string "name"
@@ -18,9 +18,25 @@ ActiveRecord::Schema.define(version: 20180417053734) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "num"
     t.index ["user_id", "created_at"], name: "index_devices_on_user_id_and_created_at"
-    t.index ["user_id", "name"], name: "index_devices_on_user_id_and_name", unique: true
+    t.index ["user_id", "num", "name"], name: "index_devices_on_user_id_and_num_and_name", unique: true
     t.index ["user_id"], name: "index_devices_on_user_id"
+  end
+
+  create_table "equips", force: :cascade do |t|
+    t.string "specie"
+    t.string "name"
+    t.string "manufacturer"
+    t.string "material"
+    t.string "specification"
+    t.integer "device_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "num"
+    t.index ["device_id", "created_at"], name: "index_equips_on_device_id_and_created_at"
+    t.index ["device_id", "num", "name", "specie"], name: "index_equips_on_device_id_and_num_and_name_and_specie", unique: true
+    t.index ["device_id"], name: "index_equips_on_device_id"
   end
 
   create_table "users", force: :cascade do |t|
