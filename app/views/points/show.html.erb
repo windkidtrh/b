@@ -1,5 +1,5 @@
 <% provide(:title, "测点") %>
-<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+
 <div class="row">
     <aside class="col-md-4">
         <section class="user_info">
@@ -9,28 +9,12 @@
                 <li><h1>测点当前长度</h1><p><strong> <%= @point.current_thinckness %></p></li>
                 <li><h1>测试次数</h1><p><strong>     <%= @count.count%></p></li>
                 <br>
-                <li>
-                    <%= link_to "显示当前测点分析图",  point_path(@point.id)  %>
-                </li> 
             </ol>
         </section>
     </aside>
     
     <aside class="col-md-4">
         <section class="user_info">
-            <ol>
-            <% @minor_point  =0 %>
-            <% @medium_point =0 %>
-            <% @severe_point =0 %>
-            <% @count.each do |devi| %>
-                <% if (devi.current_thinckness)/(devi.original_thinckness) > 0.8 and (devi.current_thinckness)/(devi.original_thinckness) <= 1  %>
-                        <% @minor_point  += 1 %>
-                <% elsif  0.8 >= (devi.current_thinckness)/(devi.original_thinckness) and (devi.current_thinckness)/(devi.original_thinckness) > 0.5   %>
-                        <% @medium_point += 1 %>
-                <% else %>
-                        <% @severe_point += 1 %>
-                <% end %>
-            <%end%>
             <ol>
             <li><h1><strong>当前编号腐蚀程度表</h1></li>
             <%= column_chart ({"轻度" => @minor_point, "中度" => @medium_point, "严重" => @severe_point }) %>

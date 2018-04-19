@@ -21,12 +21,21 @@ class PointsController < ApplicationController
     end
 
     def show 
-        # redirect_to point_path(params[:id])
+        @minor_point  = 0
+        @medium_point = 0
+        @severe_point = 0
         @point = Point.find(params[:id]) 
         @count = Point.where("num=?", @point.num)
-        # @minor_point  = 0 
-        # @medium_point = 0
-        # @severe_point = 0
+        @count.each do |msg|
+            if (msg.current_thinckness)/(msg.original_thinckness) > 0.8 and (msg.current_thinckness)/(msg.original_thinckness) <= 1
+                @minor_point  += 1
+            elsif  0.8 >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > 0.5
+                @medium_point += 1 
+            else
+                @severe_point += 1
+            end
+        end
+        
     end
 
     private
