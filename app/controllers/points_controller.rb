@@ -14,14 +14,19 @@ class PointsController < ApplicationController
     end
 
     def destroy
+        @point = Point.find(params[:id])
+        @point.destroy
+        flash[:success] = "Point deleted"
+        redirect_to request.referrer
     end
 
     def show 
+        # redirect_to point_path(params[:id])
         @point = Point.find(params[:id]) 
         @count = Point.where("num=?", @point.num)
-        @minor_point  = 0 
-        @medium_point = 0
-        @severe_point = 0  
+        # @minor_point  = 0 
+        # @medium_point = 0
+        # @severe_point = 0
     end
 
     private
