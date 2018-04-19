@@ -42,7 +42,7 @@
     <section class="user_info">
             <ol>
             <li><h1><strong>当前编号腐蚀趋势图</h1></li>
-            <%= line_chart @count.group(:created_at).sum(:current_thinckness) %>
+            <%= line_chart @count.group(:created_at).minimum(:current_thinckness) %> 
             <br>
             </ol>
         </section>
