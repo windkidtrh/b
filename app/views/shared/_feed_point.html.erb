@@ -1,0 +1,6 @@
+<% if @feed_point_items.any? %>
+    <ol class="points">
+        <%= render @feed_point_items %>
+    </ol>
+    <%= will_paginate @feed_point_items %>
+<% end %>

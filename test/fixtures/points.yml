@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: points
+#
+#  id                  :integer          not null, primary key
+#  original_thinckness :float
+#  current_thinckness  :float
+#  num                 :integer
+#  equip_id            :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  original_thinckness: 1
+  current_thinckness: 1
+  num: 1
+  equip: one
+
+two:
+  original_thinckness: 1
+  current_thinckness: 1
+  num: 1
+  equip: two

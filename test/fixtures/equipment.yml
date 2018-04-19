@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  specie: MyString
+  name: MyString
+  manufacturer: MyString
+  material: MyString
+  specification: MyString
+  device: one
+
+two:
+  specie: MyString
+  name: MyString
+  manufacturer: MyString
+  material: MyString
+  specification: MyString
+  device: two

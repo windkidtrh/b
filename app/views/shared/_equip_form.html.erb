@@ -1,0 +1,14 @@
+<%= form_for(@equip) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+        <p>新建一个设备</p>
+        <%= f.text_field :device_id,            class: 'form-control' %>
+        <%= f.text_field :specie,         placeholder: "请输入设备种类..." %>
+        <%= f.text_field :name,           placeholder: "请输入设备名..." %>
+        <%= f.text_field :num,            placeholder: "请输入设备编号..." %>
+        <%= f.text_field :manufacturer,   placeholder: "请输入生产厂商..." %>
+        <%= f.text_field :material,       placeholder: "请输入材质..." %>
+        <%= f.text_field :specification,  placeholder: "请输入规格..." %>
+    </div>
+    <%= f.submit "确定", class: "btn btn-primary" %>
+<% end %>

@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
 
   resources :devices, only: [:index, :show, :create, :destroy, :edit, :update]
-  resources :equips,  only: [:edit, :show, :update, :create, :destroy]
+  resources :equips,  only: [:edit,  :show, :update, :create, :destroy]
+  resources :points,  only: [:show,  :create, :destroy]
   resources :users
 
 

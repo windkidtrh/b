@@ -1,0 +1,23 @@
+<%= form_for(@equip) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label :specie %>
+    <%= f.text_field :specie, class: 'form-control' %>
+    
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.label :num %>
+    <%= f.text_field :num, class: 'form-control' %>
+
+    <%= f.label :manufacturer %>
+    <%= f.text_field :manufacturer, class: 'form-control' %>
+
+    <%= f.label :material %>
+    <%= f.text_field :material, class: 'form-control' %>
+
+    <%= f.label :specification %>
+    <%= f.text_field :specification, class: 'form-control' %>
+
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

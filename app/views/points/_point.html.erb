@@ -1,0 +1,15 @@
+<li id="point-<%= point.id %>">
+    <span class="device"><li><p><strong>当前设备</p><%= link_to point.equip.name, point.equip %></li></span>
+    <span class="name"><li><p><strong>测点编号</p><%= link_to point.num,  point_path(point.id)%></li></span>
+    <span class="name"><li><p><strong>原始厚度</p><%= point.original_thinckness %></li></span>
+    <span class="name"><li><p><strong>当前厚度</p><%= point.current_thinckness %></li></span>
+    <span class="timestamp">
+        Posted <%= time_ago_in_words(point.created_at) %> ago.
+        <%# <% if current_user?(point.equip.device.user) %>
+        <%# <%= link_to "delete", point, method: :delete, %>
+                                     <%# data: { confirm: "You sure?" } %>
+        <%# <% end %> 
+    </span>
+</li>
+<br>
+<br>

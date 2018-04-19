@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: equips
+#
+#  id            :integer          not null, primary key
+#  specie        :string
+#  name          :string
+#  manufacturer  :string
+#  material      :string
+#  specification :string
+#  device_id     :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  num           :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  specie: MyString
+  name: MyString
+  manufacturer: MyString
+  material: MyString
+  specification: MyString
+  device: one
+
+two:
+  specie: MyString
+  name: MyString
+  manufacturer: MyString
+  material: MyString
+  specification: MyString
+  device: two

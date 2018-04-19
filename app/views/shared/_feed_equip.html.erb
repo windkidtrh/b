@@ -1,0 +1,6 @@
+<% if @feed_equip_items.any? %>
+    <ol class="equips">
+        <%= render @feed_equip_items %>
+    </ol>
+    <%= will_paginate @feed_equip_items %>
+<% end %>

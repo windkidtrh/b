@@ -1,0 +1,18 @@
+<li id="equip-<%= equip.id %>">
+    <span class="device"><li><p><strong>当前装置</p><%= link_to equip.device.name, equip.device %></li></span>
+    <span class="name"><li><p><strong>设备种类</p><%= equip.specie %></li></span>
+    <span class="name"><li><p><strong>设备名称</p><%= link_to equip.name,  equip_path(equip.id)%></li></span>
+    <span class="name"><li><p><strong>设备编号</p><%= equip.num %></li></span>
+    <span class="name"><li><p><strong>生产厂商</p><%= equip.manufacturer %></li></span>
+    <span class="name"><li><p><strong>材质</p><%= equip.material %></li></span>
+    <span class="name"><li><p><strong>规格</p><%= equip.specification %></li></span>
+    <span class="timestamp">
+        Posted <%= time_ago_in_words(equip.created_at) %> ago.
+        <% if current_user?(equip.device.user) %>
+        <%= link_to "delete", equip, method: :delete,
+                                     data: { confirm: "You sure?" } %>
+        <% end %>
+    </span>
+</li>
+<br>
+<br>
