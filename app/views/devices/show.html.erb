@@ -1,10 +1,10 @@
-<% provide(:title, @device.name) %>
+<% provide(:title, @device.name) or current_user.admin? %>
 <% if current_user?(@device.user) %>
     <div class="row">
         <aside class="col-md-4">
             <section class="user_info">
-                <ul>
-                    <li><h1>当前装置</h1><p><strong><%= @device.name %></p></li>
+                <p>
+                    <li><h1><strong>当前装置</h1><p><strong><%= @device.name %></p></li>
                     <li><h1>编号</h1><p><strong><%= @device.num %></p></li>
                     <br>
                     <li><h1>装置的简介为</h1></li>
@@ -12,7 +12,7 @@
                     <li>
                         <%= link_to "update",  edit_device_path(@device)  %>
                     </li>
-                </ul>
+                </p>
             </section>
             <section class="equip_form">
                 <%= render 'shared/equip_form' %>
@@ -21,7 +21,7 @@
         </aside>
         <div class="col-md-8">
             <% if @device.equips.any? %>
-                <h3>Equips (<%= @device.equips.count %>)</h3>
+                <h3>设备数 (<%= @device.equips.count %>)</h3>
                 <ol class="equips">
                     <%= render 'shared/feed_equip' %>
                 </ol>

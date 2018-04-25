@@ -1,11 +1,15 @@
-<%= form_for(@point) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <div class="field">
-        <p>添加一个测试</p>
-        <%= f.text_field :equip_id,            class: 'form-control' %>
-        <%= f.text_field :num,                 placeholder: "测点编号..." %>
-        <%= f.text_field :original_thinckness, placeholder: "测点原始厚度..." %>
-        <%= f.text_field :current_thinckness,  placeholder: "测点当前厚度..." %>
-    </div>
-    <%= f.submit "确定", class: "btn btn-primary" %>
+<% if current_user?(@point.equip.device.user) %>
+	<%= form_for(@point) do |f| %>
+	    <%= render 'shared/error_messages', object: f.object %>
+	    <div class="field">
+	        <h1><strong>添加一个测点<strong></h1><br>
+	        <%= f.text_field :equip_id,            hidden: true %>
+	        <%= f.text_field :num,                 placeholder: "测点编号..." %>
+	        <%= f.text_field :original_thinckness, placeholder: "测点原始厚度..." %>
+	        <%= f.text_field :current_thinckness,  placeholder: "测点当前厚度..." %>
+	    </div>
+	    <%= f.submit "确定", class: "btn btn-primary" %>
+	<% end %>
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
 <% end %>

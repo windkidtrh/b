@@ -24,8 +24,9 @@ class PointsController < ApplicationController
         @minor_point  = 0
         @medium_point = 0
         @severe_point = 0
-        @point = Point.find(params[:id]) 
-        @count = Point.where("num=?", @point.num)
+        @point = Point.find(params[:id])
+        @equip = Equip.find(@point.equip_id) 
+        @count = Point.where("num=?", @point.num).where("equip_id=?",@point.equip_id )
         @count.each do |msg|
             if (msg.current_thinckness)/(msg.original_thinckness) > 0.8 and (msg.current_thinckness)/(msg.original_thinckness) <= 1
                 @minor_point  += 1
@@ -35,7 +36,7 @@ class PointsController < ApplicationController
                 @severe_point += 1
             end
         end
-        
+       
     end
 
     private

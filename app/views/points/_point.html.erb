@@ -1,5 +1,6 @@
 <li id="point-<%= point.id %>">
     <span class="device"><li><p><strong>当前设备</p><%= link_to point.equip.name, point.equip %></li></span>
+    <span class="name"><li><p><strong>设备编号</p><%= point.equip.num %></li></span>
     <span class="name"><li><p><strong>测点编号</p><%= link_to point.num,  point_path(point.id)%></li></span>
     <span class="name"><li><p><strong>原始厚度</p><%= point.original_thinckness %></li></span>
     <span class="name"><li><p><strong>当前厚度</p><%= point.current_thinckness %></li></span>

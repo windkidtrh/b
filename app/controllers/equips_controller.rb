@@ -1,6 +1,6 @@
 class EquipsController < ApplicationController
-    before_action :logged_in_user, only: [:edit, :update, :show, :create, :destroy]
-    before_action :real_user,      only: [:edit, :update, :show, :create, :destroy]
+    before_action :logged_in_user, only: [:edit, :update, :show, :create, :destroy, :index]
+    before_action :real_user,      only: [:edit, :update, :show, :create, :destroy, :index]
     def create
         begin
             @equip = Equip.new(equip_params)
@@ -43,6 +43,10 @@ class EquipsController < ApplicationController
         flash[:success] = "Equip deleted"
         redirect_to request.referrer
 
+    end
+
+    def index
+        @equips = Equip.paginate(page: params[:page]).where(device_id:  current_user.devices.ids)
     end
 
     private

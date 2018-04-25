@@ -2,7 +2,7 @@
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
         <p>新建一个设备</p>
-        <%= f.text_field :device_id,            class: 'form-control' %>
+        <%= f.text_field :device_id,      hidden: true %>
         <%= f.text_field :specie,         placeholder: "请输入设备种类..." %>
         <%= f.text_field :name,           placeholder: "请输入设备名..." %>
         <%= f.text_field :num,            placeholder: "请输入设备编号..." %>

@@ -1,4 +1,5 @@
 <% provide(:title, "Edit user") %>
+<% if current_user?(@user)  %>
 <% provide(:button_text, 'Save changes') %>
 <h1>Update your profile</h1>
 
@@ -12,3 +13,6 @@
         </div>
     </div>
 </div>
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
+<% end %>

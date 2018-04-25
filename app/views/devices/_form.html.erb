@@ -1,14 +1,18 @@
-<%= form_for(@device) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+<% if current_user?(@device.user) %>
+	<%= form_for(@device) do |f| %>
+	    <%= render 'shared/error_messages', object: f.object %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+	    <%= f.label :name %>
+	    <%= f.text_field :name, class: 'form-control' %>
 
-    <%= f.label :num %>
-    <%= f.text_field :num, class: 'form-control' %>
+	    <%= f.label :num %>
+	    <%= f.text_field :num, class: 'form-control' %>
 
-    <%= f.label :introduction %>
-    <%= f.text_area :introduction, class: 'form-control' %>
+	    <%= f.label :introduction %>
+	    <%= f.text_area :introduction, class: 'form-control' %>
 
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+	    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+	<% end %>
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
 <% end %>

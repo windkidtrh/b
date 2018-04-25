@@ -2,7 +2,6 @@
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
         <p>新建一个装置</p>
-        <%# <%= f.text_field :name, class: 'form-control' %>
         <%= f.text_field :name,         placeholder: "请输入装置名..." %>
         <%= f.text_field :num,          placeholder: "请输入装置编号..." %>
         <%= f.text_area  :introduction, placeholder: "请输入装置简介..." %>

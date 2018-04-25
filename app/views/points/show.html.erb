@@ -1,34 +1,40 @@
 <% provide(:title, "测点") %>
-
-<div class="row">
-    <aside class="col-md-4">
-        <section class="user_info">
-            <ol>
-                <li><h1>当前测点编号</h1><p><strong> <%= @point.num %></p></li>
-                <li><h1>测点原始长度</h1><p><strong> <%= @point.original_thinckness %></p></li>
-                <li><h1>测点本次长度</h1><p><strong> <%= @point.current_thinckness %></p></li>
-                <li><h1>测试次数</h1><p><strong>     <%= @count.count%></p></li>
+<% if current_user?(@point.equip.device.user) or current_user.admin? %>
+    <div class="row">
+        <aside class="col-md-4">
+            <section class="user_info">
+                <p>
+                    <li><h1><strong>当前设备名</h1><p><strong> <%= @equip.name %></p></li>
+                    <li><h1>当前设备编号</h1><p><strong> <%= @equip.num %></p></li>
+                    <li><h1>当前测点编号</h1><p><strong> <%= @point.num %></p></li>
+                    <li><h1>测点原始长度</h1><p><strong> <%= @point.original_thinckness %></p></li>
+                    <li><h1>测点本次长度</h1><p><strong> <%= @point.current_thinckness %></p></li>
+                    <li><h1>测试次数</h1><p><strong>     <%= @count.count%></p></li>
+                    <br>
+                </p>
+            </section>
+        </aside>
+        
+        <aside class="col-md-4">
+            <section class="user_info">
+                <ol>
+                <li><h1><strong>当前编号腐蚀程度表</h1></li>
+                单位:个
+                <%= column_chart ({"轻度" => @minor_point, "中度" => @medium_point, "严重" => @severe_point }) %>
                 <br>
-            </ol>
-        </section>
-    </aside>
-    
-    <aside class="col-md-4">
+                </ol>
+            </section>
+        </aside>
+        <aside class="col-md-4">
         <section class="user_info">
-            <ol>
-            <li><h1><strong>当前编号腐蚀程度表</h1></li>
-            <%= column_chart ({"轻度" => @minor_point, "中度" => @medium_point, "严重" => @severe_point }) %>
-            <br>
-            </ol>
-        </section>
-    </aside>
-    <aside class="col-md-4">
-    <section class="user_info">
-            <ol>
-            <li><h1><strong>当前编号腐蚀趋势图</h1></li>
-            <%= line_chart @count.group(:created_at).minimum(:current_thinckness) %> 
-            <br>
-            </ol>
-        </section>
-    </aside>
-</div>
+                <ol>
+                <li><h1><strong>当前编号腐蚀趋势图</h1></li>
+                <%= line_chart @count.group(:created_at).minimum(:current_thinckness) %>
+                <br>
+                </ol>
+            </section>
+        </aside>
+    </div>
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
+<% end %>

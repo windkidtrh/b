@@ -1,32 +1,43 @@
 <% provide(:title, @equip.name) %>
+<% if current_user?(@equip.device.user) or current_user.admin? %>
 <div class="row">
     <aside class="col-md-4">
         <section class="user_info">
-            <ul>
-                <li><h1>当前设备种类</h1><p><strong><%= @equip.specie %></p></li>
+            <p>
+                <li><h1><strong>当前设备种类</h1><p><strong><%= @equip.specie %></p></li>
                 <li><h1>当前设备名</h1><p><strong> <%= @equip.name %></p></li>
                 <li><h1>编号</h1><p><strong> <%= @equip.num %></p></li>
                 <li><h1>生产厂商</h1><p><strong><%= @equip.manufacturer %></p></li>
                 <li><h1>材质</h1><p><strong><%= @equip.material %></p></li>
                 <li><h1>规格</h1><p><strong><%= @equip.specification %></p></li>
-                <br>
+            
                 <li>
                     <%= link_to "update",  edit_equip_path(@equip)  %>
                 </li> 
-            </ul>
-        </section>
-        <section class="point_form">
-                <%= render 'shared/point_form' %>
+            </p>
         </section>
     </aside>
-    <div class="col-md-8">
+    <aside class="col-md-4">
         <% if @equip.points.any? %>
-            <h3>Points (<%= @equip.points.count %>)</h3>
+            <h3>测点数 (<%= @equip.points.count %>)</h3>
             <ol class="points">
                 <%= render @points %>
             </ol>
             <%= will_paginate @points %>
         <% end %>
-    </div>
+    </aside>
+    <aside class="col-md-4">
+        <section class="point_form">
+        <p>
+            <li>
+                <%= render 'shared/point_form' %>
+            </li>
+        </p>
+        </section>
+    </aside>
 </div>
+
+<% else %>
+    <h1>不好意思，你不是当前用户</h1>
+<% end %>
 
