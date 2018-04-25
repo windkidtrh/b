@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+# git_source(:github) do |repo_name|
+#   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+#   "https://github.com/#{repo_name}.git"
+# end
 
 gem 'rails',                   '5.1.5'
 gem 'puma',                    '3.11.3'
@@ -13,8 +13,8 @@ gem 'coffee-rails',            '4.2.2'
 gem 'turbolinks',              '5.1.0'
 gem 'jquery-rails',            '4.3.1'
 gem 'jbuilder',                '2.7.0'
-gem 'wdm',                     '0.1.1'
-gem 'win32console',            '1.3.2'
+#gem 'wdm',                     '0.1.1'
+# gem 'win32console',            '1.3.2'
 gem 'bootstrap-sass',          '3.2.0.2'
 gem 'bcrypt',                  '3.1.11'
 # gem 'bcrypt-ruby',             '3.1.5',:require => 'bcrypt'
@@ -25,12 +25,14 @@ gem 'nokogiri',                '1.8.2'
 gem 'will_paginate',           '3.1.6'
 gem 'faker',                   '1.8.7'
 gem 'rack-cors',               '1.0.2'
-gem 'annotate',                '2.7.2'
-gem 'active_model_serializers','0.10.7'  
-gem 'rake',                    '12.3.1'
-gem 'activerecord',            '5.1.5'
+#gem 'annotate'#,                '2.7.2'
+#gem 'active_model_serializers','~> 0.8.0'  
+#gem 'rake',                    '12.3.1'
+# gem 'activerecord',            '5.1.5'
 gem 'chartkick',               '2.3.4'
 gem 'groupdate',               '4.0.0'
+#gem 'thin'
+# gem 'pg'
 # gem 'rails-ujs',               '0.1.0'
 # gem 'bootstrap-will_paginate', '1.0.0' 
 # gem 'execjs',                  '2.7.0'
@@ -58,7 +60,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg','1.0.0'
+ gem 'pg','1.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
