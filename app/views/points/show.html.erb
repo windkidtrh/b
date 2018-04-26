@@ -7,10 +7,15 @@
                     <li><h1><strong>当前设备名</h1><p><strong> <%= @equip.name %></p></li>
                     <li><h1>当前设备编号</h1><p><strong> <%= @equip.num %></p></li>
                     <li><h1>当前测点编号</h1><p><strong> <%= @point.num %></p></li>
+                    <li><h1>严重腐蚀阀值</h1><p><strong> <%= @pgrade.severe_point %></p></li>
+                    <li><h1>轻度腐蚀阀值</h1><p><strong> <%= @pgrade.minor_point %></p></li>
                     <li><h1>测点原始长度</h1><p><strong> <%= @point.original_thinckness %></p></li>
                     <li><h1>测点本次长度</h1><p><strong> <%= @point.current_thinckness %></p></li>
                     <li><h1>测试次数</h1><p><strong>     <%= @count.count%></p></li>
                     <br>
+                    <li>
+                        <%= link_to "更新此腐蚀阀值",  edit_pgrade_path(@point)  %>
+                    </li> 
                 </p>
             </section>
         </aside>

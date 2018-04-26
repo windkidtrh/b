@@ -16,6 +16,7 @@
 
 class Equip < ApplicationRecord
   has_many   :points,       dependent: :destroy
+  has_many   :pgrades,      dependent: :destroy
   belongs_to :device
   default_scope -> { order(created_at: :desc) }
 

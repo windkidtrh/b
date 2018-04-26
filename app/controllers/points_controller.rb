@@ -8,8 +8,11 @@ class PointsController < ApplicationController
             redirect_to request.referrer
         else
             flash[:danger] = "enter data don't blank"
-            # @feed_point_items = []
             redirect_to request.referrer
+        end
+        begin
+            Pgrade.new(point_num: @point.num, equip_id: @point.equip_id).save
+        rescue ActiveRecord::RecordNotUnique
         end
     end
 
@@ -25,12 +28,13 @@ class PointsController < ApplicationController
         @medium_point = 0
         @severe_point = 0
         @point = Point.find(params[:id])
+        @pgrade= Pgrade.find_by(point_num: @point.num ,equip_id: @point.equip_id )
         @equip = Equip.find(@point.equip_id) 
         @count = Point.where("num=?", @point.num).where("equip_id=?",@point.equip_id )
         @count.each do |msg|
-            if (msg.current_thinckness)/(msg.original_thinckness) > 0.8 and (msg.current_thinckness)/(msg.original_thinckness) <= 1
+            if (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.minor_point and (msg.current_thinckness)/(msg.original_thinckness) <= 1
                 @minor_point  += 1
-            elsif  0.8 >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > 0.5
+            elsif  @pgrade.minor_point >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.severe_point
                 @medium_point += 1 
             else
                 @severe_point += 1
@@ -47,9 +51,10 @@ class PointsController < ApplicationController
         @equip_ids = Equip.all().where(device_id:  current_user.devices.ids)
         @points    = Point.paginate(page: params[:page]).where(equip_id:  @equip_ids.ids)
         @points.each do |msg|
-            if (msg.current_thinckness)/(msg.original_thinckness) > 0.8 and (msg.current_thinckness)/(msg.original_thinckness) <= 1
+            @pgrade= Pgrade.find_by(point_num: msg.num ,equip_id: msg.equip_id )
+            if (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.minor_point and (msg.current_thinckness)/(msg.original_thinckness) <= 1
                 @minor_list << msg.id
-            elsif  0.8 >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > 0.5
+            elsif  @pgrade.minor_point >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.severe_point
                 @medium_list << msg.id
             else
                 @severe_list << msg.id

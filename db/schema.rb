@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418085526) do
+ActiveRecord::Schema.define(version: 20180426142927) do
 
   create_table "devices", force: :cascade do |t|
     t.string "name"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20180418085526) do
     t.index ["device_id", "created_at"], name: "index_equips_on_device_id_and_created_at"
     t.index ["device_id", "num", "name", "specie"], name: "index_equips_on_device_id_and_num_and_name_and_specie", unique: true
     t.index ["device_id"], name: "index_equips_on_device_id"
+  end
+
+  create_table "pgrades", force: :cascade do |t|
+    t.float "severe_point", default: 0.5
+    t.float "minor_point", default: 0.8
+    t.integer "point_num"
+    t.integer "equip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["equip_id", "point_num"], name: "index_pgrades_on_equip_id_and_point_num", unique: true
   end
 
   create_table "points", force: :cascade do |t|
