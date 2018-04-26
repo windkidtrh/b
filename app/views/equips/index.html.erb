@@ -1,11 +1,11 @@
 <% provide(:title, 'All equips') %>
 
-	<h1>所有设备 (<%= @equips.count %>)</h1>
+<h1>所有设备 (<%= @equips.count %>)</h1>
 
-	<%= will_paginate %>
+<%= will_paginate %>
 
-	<ul class="equips">
-	    <%= render @equips %>
-	</ul> 
+<ul class="equips">
+	<%= render @equips %>
+</ul> 
 
-	<%= will_paginate %>
+<%= will_paginate %>

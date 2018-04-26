@@ -1,6 +1,6 @@
 class PointsController < ApplicationController
-    before_action :logged_in_user, only: [:show, :create, :destroy]
-    before_action :real_user,      only: [:show, :create, :destroy]
+    before_action :logged_in_user, only: [:show, :create, :destroy, :index]
+    before_action :real_user,      only: [:show, :create, :destroy, :index]
     def create
         @point = Point.new(point_params)
         if  @point.save
@@ -37,6 +37,25 @@ class PointsController < ApplicationController
             end
         end
        
+    end
+
+    def index
+        #通过下面的方式指定了显示的内容为当前用户的数据
+        @severe_list = []
+        @medium_list = []
+        @minor_list  = []
+        @equip_ids = Equip.all().where(device_id:  current_user.devices.ids)
+        @points    = Point.paginate(page: params[:page]).where(equip_id:  @equip_ids.ids)
+        @points.each do |msg|
+            if (msg.current_thinckness)/(msg.original_thinckness) > 0.8 and (msg.current_thinckness)/(msg.original_thinckness) <= 1
+                @minor_list << msg.id
+            elsif  0.8 >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > 0.5
+                @medium_list << msg.id
+            else
+                @severe_list << msg.id
+            end
+        end
+        puts @ser
     end
 
     private

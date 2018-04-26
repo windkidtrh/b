@@ -9,32 +9,3 @@
 
 <%= will_paginate %>
 
-<!--
-<%= will_paginate %>
-<div class="row">
-
-        <div class="col-md-4">
-                <h3>Device Feed</h3>
-                <ol class="devices">
-                    <%= render @devices %>
-                </ol>
-                <%# <%= render 'shared/feed' %> 
-
-        </div>
-        <div class="col-md-8">
-            <h3>Equip Feed</h3>
-            <% @devices.each do |devi| %>
-            <% @feed_equip = Equip.where("device_id = ?", devi.id)%>
-                <% if @feed_equip.any? %>
-                    <ol class="equips">
-                        <%= render @feed_equip %>
-                    </ol>
-                <% end %>
-            <%# <%= render equip.equips.find_by(device_id: equip.id) %>
-            <%end%>
-            <%# <%= render 'shared/feed_equip' %>
-        </div>
-
-</div>
-<%= will_paginate %>
--->

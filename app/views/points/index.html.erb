@@ -1,0 +1,38 @@
+<% provide(:title, 'All points') %>
+
+<h1>所有测点 (<%= @points.count %>)</h1>
+<div class="row">
+    <%= will_paginate %>
+    <aside class="col-md-4">
+        <p><strong> 轻度腐蚀数 (<%= @minor_list.count %>)</p>
+        <% @feed_point = Point.where(id: @minor_list )%>
+            <% if @feed_point.any? %>
+                <ol class="points">
+                    <%= render @feed_point %>
+                </ol>
+            <% end %>
+    </aside>
+
+    <aside class="col-md-4">
+        <p><strong> 中度腐蚀数 (<%= @medium_list.count %>)</p>
+        <% @feed_point = Point.where(id: @medium_list)%>
+            <% if @feed_point.any? %>
+                <ol class="points">
+                    <%= render @feed_point %>
+                </ol>
+            <% end %>
+    </aside>
+
+    <aside class="col-md-4">
+        <p><strong> 严重腐蚀数 (<%= @severe_list.count %>)</p>
+        <% @feed_point = Point.where(id: @severe_list)%>
+            <% if @feed_point.any? %>
+                <ol class="points">
+                    <%= render @feed_point %>
+                </ol>
+            <% end %>
+
+    </aside>
+
+    <%= will_paginate %>
+</div>
