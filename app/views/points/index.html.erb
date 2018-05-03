@@ -1,5 +1,6 @@
 <% provide(:title, 'All points') %>
 
+<%= link_to "导出测点数据" , for_point_path %>
 <h1>所有测点 (<%= @points.count %>)</h1>
 <div class="row">
     <%= will_paginate %>
