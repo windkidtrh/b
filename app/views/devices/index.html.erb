@@ -1,6 +1,6 @@
 <% provide(:title, 'All devices') %>
+<%= link_to "导出装置数据" , for_device_path %>
 <h1>所有装置 (<%= @devices.count %>)</h1>
-
 <%= will_paginate %>
 
 <ul class="devices">

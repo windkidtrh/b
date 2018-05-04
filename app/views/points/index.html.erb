@@ -1,6 +1,14 @@
 <% provide(:title, 'All points') %>
-
 <%= link_to "导出测点数据" , for_point_path %>
+<script>
+function getSelectFile(){
+    var fileName = document.getElementById("fileSelect").value;
+    alert(fileName)
+    document.execCommand('SaveAs',true,"inputxls");
+}
+</script>
+<input id="fileSelect" type="file" />
+<input value="Get File" type="button" onclick="getSelectFile();" />
 <h1>所有测点 (<%= @points.count %>)</h1>
 <div class="row">
     <%= will_paginate %>

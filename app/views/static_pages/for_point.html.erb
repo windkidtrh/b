@@ -1,5 +1,0 @@
-<h1>导出测点数据成功</h1>
-<% point_xls = @points.to_xls.force_encoding("UTF-8") %>
-<% f = File.new( "points.xls", "w+")%>
-<% f.write(point_xls) %>
-<% f.close %>
