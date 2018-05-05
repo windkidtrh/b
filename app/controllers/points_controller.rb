@@ -59,7 +59,7 @@ class PointsController < ApplicationController
             else
                 @severe_list << msg.id
             end
-        end       
+        end    
     end
 
     private

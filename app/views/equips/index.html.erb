@@ -1,5 +1,13 @@
 <% provide(:title, 'All equips') %>
 <%= link_to "导出设备数据" , for_equip_path %>
+<% provide(:button_text, '导入文件') %>
+<div class="btn-data" style="width:150px;height:10px;border:none;outline:none;">
+<%= form_for(current_user) do |f| %>
+    <p><%= f.label "请输入导入的文件" %></p>
+    <%= f.file_field :equip_adrr ,style: "width:147px;height:10px;border:none;outline:none;"%> 
+    <%= f.submit yield(:button_text), class: "btn btn-primary" ,style: "width:147px" %>
+<% end %>
+</div>
 <h1>所有设备 (<%= @equips.count %>)</h1>
 
 <%= will_paginate %>

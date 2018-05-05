@@ -1,14 +1,14 @@
 <% provide(:title, 'All points') %>
 <%= link_to "导出测点数据" , for_point_path %>
-<script>
-function getSelectFile(){
-    var fileName = document.getElementById("fileSelect").value;
-    alert(fileName)
-    document.execCommand('SaveAs',true,"inputxls");
-}
-</script>
-<input id="fileSelect" type="file" />
-<input value="Get File" type="button" onclick="getSelectFile();" />
+<% provide(:button_text, '导入文件') %>
+<div class="btn-data" style="width:150px;height:10px;border:none;outline:none;">
+<%= form_for(current_user) do |f| %>
+    <p><%= f.label "请输入导入的文件" %></p>
+    <%= f.file_field :point_adrr ,style: "width:147px;height:10px;border:none;outline:none;"%> 
+    <%= f.submit yield(:button_text), class: "btn btn-primary" ,style: "width:147px" %>
+<% end %>
+</div>
+
 <h1>所有测点 (<%= @points.count %>)</h1>
 <div class="row">
     <%= will_paginate %>

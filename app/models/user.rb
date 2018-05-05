@@ -25,6 +25,10 @@ class User < ApplicationRecord
 
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+    mount_uploader :point_adrr,  PointUploader
+    mount_uploader :device_adrr, DeviceUploader
+    mount_uploader :equip_adrr,  EquipUploader
     # 返回指定字符串的哈希摘要
     def User.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

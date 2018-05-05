@@ -36,11 +36,63 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to user_url(@user)
-    else
-      render 'edit'
+    begin
+      if @user.update_attributes(user_update_params)
+        if user_update_params['point_adrr'].nil? and user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil? 
+          flash[:success] = "Profile updated"
+          redirect_to user_url(@user)
+        elsif user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil?
+          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/point/#{current_user.id}/points.xls"
+          if File.exists?(file)
+              xlsx   = Spreadsheet.open(file)
+              sheet  = xlsx.worksheet(0)  
+              sheet.each do |p|
+                  Point.create(equip_id: p[2],current_thinckness: p[1],num: p[4],original_thinckness: p[5])
+              end
+              File.delete(file)
+          end 
+          flash[:success] = "导入测点数据成功"
+          redirect_to points_path
+
+        elsif user_update_params['point_adrr'].nil? and user_update_params['equip_adrr'].nil?
+          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/device/#{current_user.id}/devices.xls"
+          if File.exists?(file)
+              xlsx   = Spreadsheet.open(file)
+              sheet  = xlsx.worksheet(0)  
+              sheet.each do |p|
+                begin
+                  Device.create(user_id: p[6], num: p[4], name: p[3], introduction: p[2])
+                rescue ActiveRecord::RecordNotUnique
+                end
+              end
+              File.delete(file)  
+          end 
+          flash[:success] = "导入装置数据成功"
+          redirect_to devices_path
+
+        elsif user_update_params['device_adrr'].nil? and user_update_params['point_adrr'].nil?
+          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/equip/#{current_user.id}/equips.xls"
+          if File.exists?(file)  
+              xlsx   = Spreadsheet.open(file)
+              sheet  = xlsx.worksheet(0)  
+              sheet.each do |p|  
+                begin
+                  Equip.create(device_id: p[1], manufacturer: p[3], material: p[4], name: p[5], num: p[6], specie: p[7], specification: p[8])
+                rescue ActiveRecord::RecordNotUnique
+                end
+              end
+              File.delete(file)  
+          end 
+          flash[:success] = "导入设备数据成功"
+          redirect_to equips_path
+
+        end
+      else
+        render 'edit'
+      end
+    rescue ActionController::ParameterMissing
+      flash[:danger] = "文件不能为空"
+      redirect_to request.referrer
     end
   end
 
@@ -57,6 +109,10 @@ class UsersController < ApplicationController
                                      :password_confirmation)
       end
 
+      def user_update_params
+        params.require(:user).permit(:name, :email, :password,
+                                     :password_confirmation,:point_adrr,:device_adrr,:equip_adrr)
+      end
       # 确保是正确的用户
       def correct_user
         @user = User.find(params[:id])
