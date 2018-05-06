@@ -22,34 +22,41 @@ class StaticPagesController < ApplicationController
   end
 
   def for_point
-    @points = Point.all()
+    @equip_ids = Equip.all().where(device_id:  current_user.devices.ids)
+    @points    = Point.all().where(equip_id:  @equip_ids.ids)
     point_xls = @points.to_xls.force_encoding("UTF-8")
-    f = File.new( "outputxls/points.xls", "w+")
+    file = "#{Rails.root}/outputxls/point/#{current_user.id}points.xls"
+    f = File.new( file, "w+")
     f.write(point_xls)
     f.close
-    redirect_back_or points_path
-    flash[:success] = "导出测点数据成功"
+    send_file file
+    # redirect_back_or points_path
+    # flash[:success] = "导出测点数据成功"
   end
 
   def for_device
-    @devices = Device.all()
+    @devices = current_user.devices.all()
     device_xls = @devices.to_xls.force_encoding("UTF-8")
-    f = File.new( "outputxls/devices.xls", "w+")
+    file = "#{Rails.root}/outputxls/device/#{current_user.id}devices.xls"
+    f = File.new( file, "w+")
     f.write(device_xls)
     f.close
-    redirect_back_or devices_path
-    flash[:success] = "导出装置数据成功"
+    send_file file
+    # redirect_back_or devices_path
+    # flash[:success] = "导出装置数据成功"
   end
 
 
   def for_equip
-    @equips = Equip.all()
+    @equips = Equip.all().where(device_id:  current_user.devices.ids)
     equip_xls = @equips.to_xls.force_encoding("UTF-8")
-    f = File.new( "outputxls/equips.xls", "w+")
+    file = "#{Rails.root}/outputxls/equip/#{current_user.id}equips.xls"
+    f = File.new( file, "w+")
     f.write(equip_xls)
     f.close
-    redirect_back_or equips_path
-    flash[:success] = "导出设备数据成功"
+    send_file file
+    # redirect_back_or equips_path
+    # flash[:success] = "导出设备数据成功"
   end
 end
 

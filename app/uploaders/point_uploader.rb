@@ -2,7 +2,7 @@ class PointUploader < CarrierWave::Uploader::Base
     storage :file
     #model.id等于user_id,唯一的
     def store_dir
-      "/media/wind/工作/work/ruby_work/design/design/inputxls/point/#{model.id}"
+      "C:/Users/Administrator/Desktop/design/a/inputxls/point/#{model.id}"
     end
     #文件扩展类型例如，.xls结尾的文件
     def extension_whitelist

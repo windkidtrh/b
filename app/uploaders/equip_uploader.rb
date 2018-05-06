@@ -2,7 +2,7 @@ class EquipUploader < CarrierWave::Uploader::Base
     storage :file
 
     def store_dir
-      "/media/wind/工作/work/ruby_work/design/design/inputxls/equip/#{model.id}"
+      "C:/Users/Administrator/Desktop/design/a/inputxls/equip/#{model.id}"
     end
   
     def extension_whitelist

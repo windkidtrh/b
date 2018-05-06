@@ -42,46 +42,59 @@ class UsersController < ApplicationController
           flash[:success] = "Profile updated"
           redirect_to user_url(@user)
         elsif user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil?
-          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/point/#{current_user.id}/points.xls"
+          file = "C:/Users/Administrator/Desktop/design/a/inputxls/point/#{current_user.id}/points.xls"
           if File.exists?(file)
               xlsx   = Spreadsheet.open(file)
               sheet  = xlsx.worksheet(0)  
+              @equip_ids = Equip.all().where(device_id:  current_user.devices.ids)
               sheet.each do |p|
+                if @equip_ids.find_by(id: p[2])
+                  begin
+                      Pgrade.new(point_num: p[4], equip_id: p[2]).save
+                  rescue ActiveRecord::RecordNotUnique
+                  end
                   Point.create(equip_id: p[2],current_thinckness: p[1],num: p[4],original_thinckness: p[5])
+                end
               end
-              File.delete(file)
+              # File.delete(file)
           end 
           flash[:success] = "导入测点数据成功"
           redirect_to points_path
 
         elsif user_update_params['point_adrr'].nil? and user_update_params['equip_adrr'].nil?
-          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/device/#{current_user.id}/devices.xls"
+          file = "C:/Users/Administrator/Desktop/design/a/inputxls/device/#{current_user.id}/devices.xls"
           if File.exists?(file)
               xlsx   = Spreadsheet.open(file)
               sheet  = xlsx.worksheet(0)  
               sheet.each do |p|
-                begin
-                  Device.create(user_id: p[6], num: p[4], name: p[3], introduction: p[2])
-                rescue ActiveRecord::RecordNotUnique
+                find_device = current_user.devices.find_by(user_id: p[6])
+                if !find_device.nil?
+                  begin
+                    Device.create(user_id: p[6], num: p[4], name: p[3], introduction: p[2])
+                  rescue ActiveRecord::RecordNotUnique
+                  end
                 end
               end
-              File.delete(file)  
+              # File.delete(file)  
           end 
           flash[:success] = "导入装置数据成功"
           redirect_to devices_path
 
         elsif user_update_params['device_adrr'].nil? and user_update_params['point_adrr'].nil?
-          file = "/media/wind/工作/work/ruby_work/design/design/inputxls/equip/#{current_user.id}/equips.xls"
+          file = "C:/Users/Administrator/Desktop/design/a/inputxls/equip/#{current_user.id}/equips.xls"
           if File.exists?(file)  
               xlsx   = Spreadsheet.open(file)
               sheet  = xlsx.worksheet(0)  
               sheet.each do |p|  
-                begin
-                  Equip.create(device_id: p[1], manufacturer: p[3], material: p[4], name: p[5], num: p[6], specie: p[7], specification: p[8])
-                rescue ActiveRecord::RecordNotUnique
+                @device_ids = Device.all().where(user_id:  current_user.id)
+                if @device_ids.find_by(id: p[1])
+                  begin
+                    Equip.create(device_id: p[1], manufacturer: p[3], material: p[4], name: p[5], num: p[6], specie: p[7], specification: p[8])
+                  rescue ActiveRecord::RecordNotUnique
+                  end
                 end
               end
-              File.delete(file)  
+              # File.delete(file)  
           end 
           flash[:success] = "导入设备数据成功"
           redirect_to equips_path
