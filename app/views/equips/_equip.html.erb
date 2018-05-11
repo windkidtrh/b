@@ -7,10 +7,10 @@
     <span class="name"><li><p><strong>材质</p><%= equip.material %></li></span>
     <span class="name"><li><p><strong>规格</p><%= equip.specification %></li></span>
     <span class="timestamp">
-        Posted <%= time_ago_in_words(equip.created_at) %> ago.
+        发布于 <%= time_ago_in_words(equip.created_at) %> 前.
         <% if current_user?(equip.device.user) %>
-        <%= link_to "delete", equip, method: :delete,
-                                     data: { confirm: "You sure?" } %>
+        <%= link_to "删除", equip, method: :delete,
+                                     data: { confirm: "确定?" } %>
         <% end %>
     </span>
 </li>

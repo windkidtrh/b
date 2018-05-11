@@ -2,13 +2,13 @@
 	<%= form_for(@device) do |f| %>
 	    <%= render 'shared/error_messages', object: f.object %>
 
-	    <%= f.label :name %>
+	    <%= f.label "姓名" %>
 	    <%= f.text_field :name, class: 'form-control' %>
 
-	    <%= f.label :num %>
+	    <%= f.label "编号" %>
 	    <%= f.text_field :num, class: 'form-control' %>
 
-	    <%= f.label :introduction %>
+	    <%= f.label "简介" %>
 	    <%= f.text_area :introduction, class: 'form-control' %>
 
 	    <%= f.submit yield(:button_text), class: "btn btn-primary" %>

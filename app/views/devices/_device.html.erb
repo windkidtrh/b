@@ -5,10 +5,10 @@
     <span class="introduction"><li><p><strong>简介</p><%= device.introduction %></span>
 
     <span class="timestamp">
-        Posted <%= time_ago_in_words(device.created_at) %> ago.
+        发布于 <%= time_ago_in_words(device.created_at) %> 前.
         <% if current_user?(device.user) %>
-        <%= link_to "delete", device, method: :delete,
-                                      data: { confirm: "You sure?" } %>
+        <%= link_to "删除", device, method: :delete,
+                                      data: { confirm: "确定?" } %>
         <% end %>
     </span>
 </li>

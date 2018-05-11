@@ -2,22 +2,22 @@
     <%= form_for(@equip) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :specie %>
+        <%= f.label "种类" %>
         <%= f.text_field :specie, class: 'form-control' %>
         
-        <%= f.label :name %>
+        <%= f.label "名称" %>
         <%= f.text_field :name, class: 'form-control' %>
 
-        <%= f.label :num %>
+        <%= f.label "编号" %>
         <%= f.text_field :num, class: 'form-control' %>
 
-        <%= f.label :manufacturer %>
+        <%= f.label "生产厂商" %>
         <%= f.text_field :manufacturer, class: 'form-control' %>
 
-        <%= f.label :material %>
+        <%= f.label "材质" %>
         <%= f.text_field :material, class: 'form-control' %>
 
-        <%= f.label :specification %>
+        <%= f.label "规格" %>
         <%= f.text_field :specification, class: 'form-control' %>
 
         <%= f.submit yield(:button_text), class: "btn btn-primary" %>

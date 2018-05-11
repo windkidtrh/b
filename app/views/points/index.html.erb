@@ -1,4 +1,4 @@
-<% provide(:title, 'All points') %>
+<% provide(:title, '所有测点') %>
 <%= link_to "导出测点数据" , for_point_path %>
 <% provide(:button_text, '导入文件') %>
 <div class="btn-data" style="width:150px;height:10px;border:none;outline:none;">
@@ -10,8 +10,8 @@
 </div>
 
 <h1>所有测点 (<%= @points.count %>)</h1>
+<%= will_paginate %>
 <div class="row">
-    <%= will_paginate %>
     <aside class="col-md-4">
         <p><strong> 轻度腐蚀数 (<%= @minor_list.count %>)</p>
         <% @feed_point = Point.where(id: @minor_list )%>
@@ -42,6 +42,5 @@
             <% end %>
 
     </aside>
-
-    <%= will_paginate %>
 </div>
+<%= will_paginate %>
