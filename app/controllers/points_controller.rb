@@ -1,4 +1,5 @@
 class PointsController < ApplicationController
+    # require 'rubypython'
     before_action :logged_in_user, only: [:show, :create, :destroy, :index]
     before_action :real_user,      only: [:show, :create, :destroy, :index]
     def create
@@ -27,11 +28,13 @@ class PointsController < ApplicationController
         @minor_point  = 0
         @medium_point = 0
         @severe_point = 0
+        b = []
         @point = Point.find(params[:id])
         @pgrade= Pgrade.find_by(point_num: @point.num ,equip_id: @point.equip_id )
         @equip = Equip.find(@point.equip_id) 
         @count = Point.where("num=?", @point.num).where("equip_id=?",@point.equip_id )
         @count.each do |msg|
+            b.push(msg.current_thinckness)
             if (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.minor_point and (msg.current_thinckness)/(msg.original_thinckness) <= 1
                 @minor_point  += 1
             elsif  @pgrade.minor_point >= (msg.current_thinckness)/(msg.original_thinckness) and (msg.current_thinckness)/(msg.original_thinckness) > @pgrade.severe_point
@@ -40,7 +43,18 @@ class PointsController < ApplicationController
                 @severe_point += 1
             end
         end
-       
+        x = b.reverse
+        n = current_user.gm_num
+        @gm_result = 0
+        RubyPython.start
+        np = RubyPython.import("numpy")
+        for_test = RubyPython.import("for_numpy")
+        a=np.array(x)
+        result = for_test.gm11(a,n).next()
+        @gm_result = result
+        print @gm_result
+        # RubyPython.stop
+
     end
 
     def index
@@ -59,7 +73,7 @@ class PointsController < ApplicationController
             else
                 @severe_list << msg.id
             end
-        end    
+        end
     end
 
     private

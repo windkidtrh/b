@@ -58,5 +58,6 @@ class StaticPagesController < ApplicationController
     # redirect_back_or equips_path
     # flash[:success] = "导出设备数据成功"
   end
+
 end
 

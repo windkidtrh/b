@@ -38,10 +38,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     begin
       if @user.update_attributes(user_update_params)
-        if user_update_params['point_adrr'].nil? and user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil? 
+        if user_update_params['point_adrr'].nil? and user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil? and user_update_params['gm_num'].nil?
           flash[:success] = "Profile updated"
           redirect_to user_url(@user)
-        elsif user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil?
+        elsif user_update_params['device_adrr'].nil? and user_update_params['equip_adrr'].nil? and user_update_params['gm_num'].nil?
           file = "C:/Users/Administrator/Desktop/design/a/inputxls/point/#{current_user.id}/points.xls"
           if File.exists?(file)
               xlsx   = Spreadsheet.open(file)
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
           flash[:success] = "导入测点数据成功"
           redirect_to points_path
 
-        elsif user_update_params['point_adrr'].nil? and user_update_params['equip_adrr'].nil?
+        elsif user_update_params['point_adrr'].nil? and user_update_params['equip_adrr'].nil? and user_update_params['gm_num'].nil?
           file = "C:/Users/Administrator/Desktop/design/a/inputxls/device/#{current_user.id}/devices.xls"
           if File.exists?(file)
               xlsx   = Spreadsheet.open(file)
@@ -80,12 +80,12 @@ class UsersController < ApplicationController
           flash[:success] = "导入装置数据成功"
           redirect_to devices_path
 
-        elsif user_update_params['device_adrr'].nil? and user_update_params['point_adrr'].nil?
+        elsif user_update_params['device_adrr'].nil? and user_update_params['point_adrr'].nil? and user_update_params['gm_num'].nil?
           file = "C:/Users/Administrator/Desktop/design/a/inputxls/equip/#{current_user.id}/equips.xls"
           if File.exists?(file)  
               xlsx   = Spreadsheet.open(file)
               sheet  = xlsx.worksheet(0)  
-              sheet.each do |p|  
+              sheet.each do |p| 
                 @device_ids = Device.all().where(user_id:  current_user.id)
                 if @device_ids.find_by(id: p[1])
                   begin
@@ -98,7 +98,9 @@ class UsersController < ApplicationController
           end 
           flash[:success] = "导入设备数据成功"
           redirect_to equips_path
-
+        elsif !user_update_params['gm_num'].nil?
+          flash[:success] = "分析成功，请查看"
+          redirect_to request.referrer
         end
       else
         render 'edit'
@@ -124,7 +126,7 @@ class UsersController < ApplicationController
 
       def user_update_params
         params.require(:user).permit(:name, :email, :password,
-                                     :password_confirmation,:point_adrr,:device_adrr,:equip_adrr)
+                                     :password_confirmation,:point_adrr,:device_adrr,:equip_adrr,:gm_num)
       end
       # 确保是正确的用户
       def correct_user

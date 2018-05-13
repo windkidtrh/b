@@ -1,4 +1,5 @@
 <% provide(:title, "测点") %>
+<% provide(:button_text, '开始分析') %>
 <% if current_user?(@point.equip.device.user) or current_user.admin? %>
     <div class="row">
         <aside class="col-md-4">
@@ -28,6 +29,15 @@
                 <br>
                 </ol>
             </section>
+            <br>
+            <p>目前测试次数为  <%= @count.count%></p>
+            <div style="width:150px;height:10px;border:none;outline:none;">
+            <%= form_for(current_user) do |f| %>
+                <p><%= f.label "请输入测点的第n次数" %></p>
+                <%= f.text_field :gm_num ,style: "width:147px;height:10px;border:none;outline:none;"%> 
+                <%= f.submit yield(:button_text), class: "btn btn-primary" ,style: "width:147px" %>
+            <% end %>
+            </div>
         </aside>
         <aside class="col-md-4">
         <section class="user_info">
@@ -37,6 +47,9 @@
                 <br>
                 </ol>
             </section>
+            <br>
+            <p>经过系统分析后</p>
+            <p>当前测点的厚度将变成：<%= @gm_result %></p>
         </aside>
     </div>
 <% else %>
